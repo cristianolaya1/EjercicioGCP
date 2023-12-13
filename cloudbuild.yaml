@@ -1,0 +1,22 @@
+#Crea la imagen en un contenedor
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'europe-west1-docker.pkg.dev/mi-proyecto-thebridge/mi-repositorio/webapp-run', './mi_app/cloud_run/']
+
+#Sube la imagen al registro de contenedores de google
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'europe-west1-docker.pkg.dev/proyecto-bridge/gcp/webapp-run']
+
+#Despliega la imagen en una cloud run
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: gcloud
+  args:
+  - run
+  - deploy
+  - webapp-run
+  - --image=europe-west1-docker.pkg.dev/mi-proyecto-thebridge/mi-repositorio/webapp-run
+  - --region=europe-west1
+  - --platform=managed
+  - --allow-unauthenticated
+  - --port=8080
+images:
+- 'europe-west1-docker.pkg.dev/mi-proyecto-thebridge/mi-repositorio/webapp-run'
