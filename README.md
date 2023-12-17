@@ -23,7 +23,7 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'europe-west1-docker.pkg.dev/proyecto-thebridge/repo/webapp-run']
 
-#Despliega la imagen en una cloud run
+#Imagen
 - name: 'gcr.io/cloud-builders/gcloud'
   entrypoint: gcloud
   args:
@@ -189,15 +189,4 @@ def submit_form(n_clicks, nombre, email):
 
 if __name__ == '__main__':
     app.run_server(host='0.0.0.0', port=80, debug=True)
-```
-
-Documento docker
-```
-FROM python:3.7-alpine
-COPY app /app
-WORKDIR /app
-RUN pip install -r requirements.txt
-EXPOSE 8080
-
-CMD ["python","app.py"]
 ```
