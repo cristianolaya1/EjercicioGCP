@@ -1,10 +1,23 @@
+#despliegue funcion
+steps:
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - functions
+  - deploy
+  - read_json_from_gcs
+  - --runtime=python39
+  - --region=europe-west1
+  - --trigger-bucket=gs://bucket_gcp
+  - --allow-unauthenticated
+  - --source=./cloud_function
+
 #Imagen
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'europe-west1-docker.pkg.dev/mi-proyecto-thebridge/mi-repositorio/webapp-run', './mi_app/cloud_run/']
+  args: ['build', '-t', 'europe-west1-docker.pkg.dev/proyecto-bridge/repo/app', './cloud_function/']
 
 #Contenedor
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'europe-west1-docker.pkg.dev/proyecto-bridge/gcp/webapp-run']
+  args: ['push', 'europe-west1-docker.pkg.dev/proyecto-bridge/gcp/app']
 
 #Despliegue cloud run
 - name: 'gcr.io/cloud-builders/gcloud'
@@ -13,10 +26,10 @@
   - run
   - deploy
   - webapp-run
-  - --image=europe-west1-docker.pkg.dev/mi-proyecto-thebridge/mi-repositorio/webapp-run
+  - --image=europe-west1-docker.pkg.dev/proyecto-bridge/repo/app
   - --region=europe-west1
   - --platform=managed
   - --allow-unauthenticated
   - --port=8080
 images:
-- 'europe-west1-docker.pkg.dev/mi-proyecto-thebridge/mi-repositorio/webapp-run'
+- 'europe-west1-docker.pkg.dev/proyecto-bridge/repo/app'
