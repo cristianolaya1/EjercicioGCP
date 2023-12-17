@@ -11,7 +11,6 @@ Formato de guardado del documento en la base de datos
 
 
 Codigo de la cloud function
-
 ```
 import json
 from google.cloud import storage, firestore
