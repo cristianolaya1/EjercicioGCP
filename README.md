@@ -51,7 +51,7 @@ images:
   - --allow-unauthenticated
   - --port=8080
 images:
-- 'europe-west1-docker.pkg.dev/mi-proyecto-thebridge/mi-repositorio/webapp-run'
+- 'europe-west1-docker.pkg.dev/proyecto-thebridge/repo/webapp-run'
 ```
 
 Codigo de la cloud function
